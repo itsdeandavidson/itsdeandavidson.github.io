@@ -27,12 +27,4 @@ builder.Services.AddDataServices(Assembly.GetExecutingAssembly());
 
 builder.Services.AddMudServices();
 
-#if LastFmApiKey
-string LastFmApiKey= "MySecret";
-#else
-string LastFmApiKey = "default_value"; // fallback if not set
-#endif
-
-Console.WriteLine($"Secret: {LastFmApiKey}");
-
 await builder.Build().RunAsync();

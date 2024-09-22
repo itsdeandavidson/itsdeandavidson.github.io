@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@Theme" IsDarkMode="@IsDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+	<MudAppBar Elevation="0">
+		<MudSpacer />
+		<MudToggleIconButton @bind-Toggled="IsDarkMode" Icon="@Icons.Material.Filled.Nightlight" ToggledIcon="@Icons.Material.Filled.LightMode" @onclick="@(() => { IsDarkMode = !IsDarkMode;})" />
+	</MudAppBar>
+
+	<MudMainContent>
+		<MudContainer Class="my-4">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+</MudLayout>
+
+@code
+{
+	public bool IsDarkMode { get; set; } = false;
+
+	private MudTheme Theme { get; set; } = new()
+	{
+		PaletteLight = new PaletteLight()
+		{
+				ActionDefault = Colors.Pink.Darken4,
+				Primary = Colors.Pink.Darken4,
+				Secondary = Colors.Pink.Default,
+				AppbarBackground = "rgba(252, 228, 236, 0.8)",
+				Background = Colors.Pink.Lighten5,
+				Divider = Colors.Pink.Darken2,
+				Surface = Colors.Pink.Lighten5,
+				Dark = Colors.Pink.Default
+		}
+	};
+}

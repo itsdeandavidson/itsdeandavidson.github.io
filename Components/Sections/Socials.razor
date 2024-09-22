@@ -1,0 +1,35 @@
+﻿@using Models.LanyardApi
+@inject ILanyardDataService lanyardDataService
+
+@if (DiscordStatus is not null)
+{
+	@if (DiscordStatus == Status.Online || DiscordStatus == Status.Dnd || DiscordStatus == Status.Idle)
+	{
+		<MudText>Discord's been open on my device..</MudText>
+	}
+}
+
+
+Hmmm
+
+@code
+{
+	[Parameter]
+	public string? DiscordId { get; set; }
+	public Status? DiscordStatus { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await LoadData();
+	}
+
+	private async Task LoadData()
+	{
+		if (DiscordId is not null)
+		{
+			(DiscordStatus, _) = await lanyardDataService.GetDiscordStatus(DiscordId);
+		}
+
+		StateHasChanged();
+	}
+}

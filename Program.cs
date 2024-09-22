@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using PersonalWebsite.Components;
-using PersonalWebsite.Services.DataServices.DataServices;
-using PersonalWebsite.Services.DataServices.Interfaces;
+using PersonalWebsite.Extensions;
+using System.Reflection;
 
 
 
@@ -18,8 +18,21 @@ builder.Services.AddHttpClient("LanyardApi", c =>
 	c.BaseAddress = new Uri("https://api.lanyard.rest/v1/users/");
 });
 
-builder.Services.AddTransient<ILanyardDataService, LanyardDataService>();
+builder.Services.AddHttpClient("LastFmApi", c =>
+{
+	c.BaseAddress = new Uri($"https://ws.audioscrobbler.com/2.0/");
+});
+
+builder.Services.AddDataServices(Assembly.GetExecutingAssembly());
 
 builder.Services.AddMudServices();
+
+#if LastFmApiKey
+string LastFmApiKey= "MySecret";
+#else
+string LastFmApiKey = "default_value"; // fallback if not set
+#endif
+
+Console.WriteLine($"Secret: {LastFmApiKey}");
 
 await builder.Build().RunAsync();

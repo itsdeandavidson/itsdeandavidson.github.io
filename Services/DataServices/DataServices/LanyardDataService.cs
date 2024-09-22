@@ -6,15 +6,16 @@ namespace PersonalWebsite.Services.DataServices.DataServices;
 
 public class LanyardDataService : ILanyardDataService
 {
-	private readonly HttpClient client;
+	private readonly HttpClient httpClient;
+
 	public LanyardDataService(IHttpClientFactory httpClientFactory)
 	{
-		client = httpClientFactory.CreateClient("LanyardApi");
+		httpClient = httpClientFactory.CreateClient("LanyardApi");
 	}
 
 	public async Task<(Status? Status, string? ErrorMessage)> GetDiscordStatus(string usreId)
 	{
-		HttpResponseMessage response = await client.GetAsync(usreId);
+		HttpResponseMessage response = await httpClient.GetAsync(usreId);
 
 		if (response.IsSuccessStatusCode)
 		{

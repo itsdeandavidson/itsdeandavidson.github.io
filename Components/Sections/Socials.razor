@@ -9,14 +9,11 @@
 	}
 }
 
-
-Hmmm
-
 @code
 {
 	[Parameter]
 	public string? DiscordId { get; set; }
-	public Status? DiscordStatus { get; set; }
+	private Status? DiscordStatus { get; set; }
 
 	protected override async Task OnParametersSetAsync()
 	{

@@ -1,0 +1,23 @@
+﻿@page "/test"
+@inject ILastFmDataService lastFmDataService
+
+@if (LastFm is not null)
+{
+	<MudText>@LastFm</MudText>
+}
+
+@code
+{
+	private string? LastFm { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await LoadData();
+	}
+
+	private async Task LoadData()
+	{
+		LastFm = await lastFmDataService.GetRecentTracks("itsdeandavidson");
+		StateHasChanged();
+	}
+}

@@ -67,9 +67,6 @@ jobs:
           name: published-files
           path: publish/wwwroot
 
-      - name: List downloaded files
-        run: ls -R published-files
-
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

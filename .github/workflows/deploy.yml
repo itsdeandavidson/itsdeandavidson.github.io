@@ -71,6 +71,11 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: published-files
+          publish_dir: publish/wwwroot
           force_orphan: true
           cname: ${{ vars.CNAME }}
+          
+      - name: Clean Artifcats
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: published-files
